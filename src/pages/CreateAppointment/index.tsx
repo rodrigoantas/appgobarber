@@ -83,7 +83,6 @@ const CreateAppointment: React.FC = () => {
       })
       .then(response => {
         setAvailability(response.data);
-        setSelectedHour(0);
       });
   }, [selectedDate, selectedProvider]);
 
@@ -134,12 +133,12 @@ const CreateAppointment: React.FC = () => {
 
   const handleSelectHour = useCallback((hour: number) => {
     setSelectedHour(hour);
-    console.log(hour);
   }, []);
 
   const handleCreateAppointment = useCallback(async () => {
     try {
       const date = new Date(selectedDate);
+
       date.setHours(selectedHour);
       date.setMinutes(0);
 
@@ -149,7 +148,6 @@ const CreateAppointment: React.FC = () => {
       });
 
       navigate('AppointmentCreated', { date: date.getTime() });
-      console.log('teste');
     } catch (err) {
       Alert.alert(
         'Erro ao criar agendamento.',
@@ -157,8 +155,6 @@ const CreateAppointment: React.FC = () => {
       );
     }
   }, [navigate, selectedDate, selectedHour, selectedProvider]);
-
-  console.log(availability);
 
   return (
     <Container>
